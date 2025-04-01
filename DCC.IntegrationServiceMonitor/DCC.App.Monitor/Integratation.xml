@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dashboard CurrencyCulture="en-US">
+  <Title Text="Dashboard" />
+  <DataSources>
+    <SqlDataSource ComponentName="dashboardSqlDataSource1">
+      <Name>SQL Data Source 1</Name>
+      <Connection Name="localhost_DCCRetail_WestLand_Connection" ProviderKey="MSSqlServer">
+        <Parameters>
+          <Parameter Name="server" Value="localhost" />
+          <Parameter Name="database" Value="DCCRetail_WestLand" />
+		  
+          <Parameter Name="useIntegratedSecurity" Value="False" />
+          <Parameter Name="read only" Value="1" />
+          <Parameter Name="generateConnectionHelper" Value="false" />
+        </Parameters>
+      </Connection>
+      <Query Type="TableQuery" Name="IntegrationAudit">
+        <Table Name="IntegrationAudit">
+          <Column Name="IntegrationId" />
+          <Column Name="SourceType" />
+          <Column Name="SourceId" />
+          <Column Name="OperationType" />
+          <Column Name="StoreId" />
+          <Column Name="Flag" />
+          <Column Name="Status" />
+          <Column Name="ErrorMessage" />
+          <Column Name="LogDatetime" />
+        </Table>
+      </Query>
+      <ResultSchema>
+        <DataSet Name="SQL Data Source 1">
+          <View Name="IntegrationAudit">
+            <Field Name="IntegrationId" Type="Int64" />
+            <Field Name="SourceType" Type="Int32" />
+            <Field Name="SourceId" Type="String" />
+            <Field Name="OperationType" Type="Int16" />
+            <Field Name="StoreId" Type="String" />
+            <Field Name="Flag" Type="Boolean" />
+            <Field Name="Status" Type="Boolean" />
+            <Field Name="ErrorMessage" Type="String" />
+            <Field Name="LogDatetime" Type="DateTime" />
+          </View>
+        </DataSet>
+      </ResultSchema>
+      <CalculatedFields>
+        <CalculatedField Name="Calculated Field 1" Expression="Iif([Flag] = True, 'Processed', 'Not Processed')" DataMember="IntegrationAudit" />
+      </CalculatedFields>
+    </SqlDataSource>
+  </DataSources>
+  <Items>
+    <Grid ComponentName="gridDashboardItem1" Name="Grid 1" ShowCaption="false" DataSource="dashboardSqlDataSource1" DataMember="IntegrationAudit">
+      <DataItems>
+        <Dimension DataMember="IntegrationId" Name="Id" UniqueName="DataItem0">
+          <NumericFormat FormatType="Number" Precision="0" Unit="Ones" />
+        </Dimension>
+        <Dimension DataMember="SourceId" SortOrder="Descending" UniqueName="DataItem1" />
+        <Dimension DataMember="Flag" UniqueName="DataItem2" />
+        <Dimension DataMember="Status" UniqueName="DataItem3" />
+        <Dimension DataMember="ErrorMessage" UniqueName="DataItem4" />
+        <Dimension DataMember="SourceType" UniqueName="DataItem5" />
+      </DataItems>
+      <FormatRules>
+        <GridItemFormatRule Name="FormatRule 1" DataItem="DataItem0">
+          <FormatConditionRangeGradient ValueType="Percent">
+            <RangeSet>
+              <Ranges>
+                <RangeInfo>
+                  <Value Type="System.Double" Value="0" />
+                  <AppearanceSettings AppearanceType="GradientGreen" />
+                </RangeInfo>
+                <RangeInfo>
+                  <Value Type="System.Double" Value="10" />
+                </RangeInfo>
+                <RangeInfo>
+                  <Value Type="System.Double" Value="20" />
+                </RangeInfo>
+                <RangeInfo>
+                  <Value Type="System.Double" Value="30" />
+                </RangeInfo>
+                <RangeInfo>
+                  <Value Type="System.Double" Value="40" />
+                </RangeInfo>
+                <RangeInfo>
+                  <Value Type="System.Double" Value="50" />
+                  <AppearanceSettings AppearanceType="GradientYellow" />
+                </RangeInfo>
+                <RangeInfo>
+                  <Value Type="System.Double" Value="60" />
+                </RangeInfo>
+                <RangeInfo>
+                  <Value Type="System.Double" Value="70" />
+                </RangeInfo>
+                <RangeInfo>
+                  <Value Type="System.Double" Value="80" />
+                </RangeInfo>
+                <RangeInfo>
+                  <Value Type="System.Double" Value="90" />
+                  <AppearanceSettings AppearanceType="GradientBlue" />
+                </RangeInfo>
+              </Ranges>
+            </RangeSet>
+          </FormatConditionRangeGradient>
+        </GridItemFormatRule>
+      </FormatRules>
+      <GridColumns>
+        <GridDimensionColumn Weight="25.536809815950921">
+          <Dimension UniqueName="DataItem0" />
+        </GridDimensionColumn>
+        <GridDimensionColumn Weight="84.202453987730067">
+          <Dimension UniqueName="DataItem5" />
+        </GridDimensionColumn>
+        <GridDimensionColumn Weight="39.340490797546011">
+          <Dimension UniqueName="DataItem1" />
+        </GridDimensionColumn>
+        <GridDimensionColumn Weight="48.312883435582819">
+          <Dimension UniqueName="DataItem2" />
+        </GridDimensionColumn>
+        <GridDimensionColumn Weight="30.368098159509202">
+          <Dimension UniqueName="DataItem3" />
+        </GridDimensionColumn>
+        <GridDimensionColumn Weight="222.23926380368098">
+          <Dimension UniqueName="DataItem4" />
+        </GridDimensionColumn>
+      </GridColumns>
+      <GridOptions EnableBandedRows="true" ColumnWidthMode="Manual" />
+    </Grid>
+    <Chart ComponentName="chartDashboardItem1" Name="Chart 1" ShowCaption="false" DataSource="dashboardSqlDataSource1" DataMember="IntegrationAudit">
+      <DataItems>
+        <Measure DataMember="IntegrationId" SummaryType="Count" UniqueName="DataItem1" />
+        <Dimension DataMember="Calculated Field 1" ColoringMode="Hue" UniqueName="DataItem0" />
+      </DataItems>
+      <Arguments>
+        <Argument UniqueName="DataItem0" />
+      </Arguments>
+      <Panes>
+        <Pane Name="Pane 1">
+          <Series>
+            <Simple Name="No of Records">
+              <Value UniqueName="DataItem1" />
+            </Simple>
+          </Series>
+        </Pane>
+      </Panes>
+    </Chart>
+  </Items>
+  <ColorScheme>
+    <Entry DataSource="dashboardSqlDataSource1" DataMember="IntegrationAudit" Color="-848284">
+      <DimensionKeys>
+        <DimensionKey>
+          <Definition DataMember="Calculated Field 1" />
+          <Value Type="System.String" Value="Not Processed" />
+        </DimensionKey>
+      </DimensionKeys>
+    </Entry>
+    <Entry DataSource="dashboardSqlDataSource1" DataMember="IntegrationAudit" Color="-1439278">
+      <DimensionKeys>
+        <DimensionKey>
+          <Definition DataMember="Calculated Field 1" />
+          <Value Type="System.String" Value="Processed" />
+        </DimensionKey>
+      </DimensionKeys>
+    </Entry>
+  </ColorScheme>
+  <LayoutTree>
+    <LayoutGroup>
+      <LayoutItem DashboardItem="gridDashboardItem1" Weight="72.406417112299465" />
+      <LayoutItem DashboardItem="chartDashboardItem1" Weight="27.593582887700535" />
+    </LayoutGroup>
+  </LayoutTree>
+</Dashboard>

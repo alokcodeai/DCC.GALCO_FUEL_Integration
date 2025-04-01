@@ -1,0 +1,6 @@
+@DCC.GALCO_FUEL_Integration_HostAddress = http://localhost:5234
+
+GET {{DCC.GALCO_FUEL_Integration_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
